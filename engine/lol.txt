@@ -1,0 +1,59 @@
+void Shooter::gui() {
+    if (inGame) {
+        // --- ЭТО РИСУЕТСЯ ТОЛЬКО В ИГРЕ ---
+
+        // Прицел
+        sf::Sprite sprite;
+        sprite.setTexture(*ResourceManager::loadTexture(ShooterConsts::MAIN_MENU_GUI));
+        sprite.setTextureRect(sf::IntRect(243, 3, 9, 9));
+        sprite.scale(3, 3);
+        sprite.setPosition(static_cast<float>(screen->width()) / 2.0f - 27.0f / 2.0f,
+                           static_cast<float>(screen->height()) / 2.0f - 27.0f / 2.0f);
+        sprite.setColor(sf::Color(0, 0, 0, 250));
+        screen->drawSprite(sprite);
+
+        // Статистика игрока
+        drawPlayerStats();
+        drawStatsTable();
+    } else {
+        // --- ЭТО РИСУЕТСЯ ТОЛЬКО В МЕНЮ (ПОЛЗУНОК) ---
+
+        double sliderX = 100;
+        double sliderY = 100;
+        double sliderWidth = 255;
+
+        screen->drawText("BACKGROUND RED: " + std::to_string((int)bgRedValue),
+                         Vec2D{sliderX, sliderY - 40}, 25, sf::Color::White);
+
+        // Полоска
+        screen->drawTetragon(Vec2D{sliderX, sliderY},
+                             Vec2D{sliderX + sliderWidth, sliderY},
+                             Vec2D{sliderX + sliderWidth, sliderY + 15},
+                             Vec2D{sliderX, sliderY + 15},
+                             sf::Color(80, 80, 80));
+
+        // Ручка
+        double handlePos = sliderX + bgRedValue;
+        screen->drawTetragon(Vec2D{handlePos - 10, sliderY - 5},
+                             Vec2D{handlePos + 10, sliderY - 5},
+                             Vec2D{handlePos + 10, sliderY + 20},
+                             Vec2D{handlePos - 10, sliderY + 20},
+                             sf::Color::White);
+
+        // Логика
+        if (mouse->isButtonPressed(sf::Mouse::Left)) {
+            Vec2D mPos = mouse->getMousePosition();
+            if (mPos.y() >= sliderY - 20 && mPos.y() <= sliderY + 40) {
+                if (mPos.x() >= sliderX && mPos.x() <= sliderX + sliderWidth) {
+                    bgRedValue = mPos.x() - sliderX;
+                    // Обновляем глобальную переменную в Consts
+                    Consts::BACKGROUND_COLOR = sf::Color(bgRedValue, 125, 125);
+                }
+            }
+        }
+    }
+
+    // 3. Статистика (в самом конце)
+    drawPlayerStats();
+    drawStatsTable();
+}
