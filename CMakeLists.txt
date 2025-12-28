@@ -68,24 +68,39 @@ set(COMMON_SOURCES
 )
 
 # Клиентские файлы (Рендеринг, Управление, Камера)
+# Клиентские файлы (Рендеринг, Управление, Камера, Сетевой клиент)
 set(CLIENT_SOURCES
         Source.cpp
         Shooter.cpp
         Shooter.h
         network/ShooterClient.cpp
         network/ShooterClient.h
+        # Добавляем базовый сетевой клиент
+        engine/network/ClientUDP.cpp
+        engine/network/ClientUDP.h
+
         player/PlayerController.cpp
         player/PlayerController.h
+
         engine/Engine.cpp
         engine/Engine.h
         engine/Camera.cpp
         engine/Camera.h
+
+        # Интерфейс и ввод
         engine/io/Screen.cpp
         engine/io/Screen.h
         engine/io/Keyboard.cpp
         engine/io/Keyboard.h
         engine/io/Mouse.cpp
         engine/io/Mouse.h
+
+        # Добавляем GUI систему
+        engine/gui/Window.cpp
+        engine/gui/Window.h
+        engine/gui/Button.cpp
+        engine/gui/Button.h
+        # Если есть другие файлы в engine/gui (например, Text, Label), добавьте их тоже
 )
 
 # --- 2. Поиск SFML ---
