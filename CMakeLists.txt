@@ -4,9 +4,9 @@ project(shooter)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 
-# --- 1. Списки исходных файлов ---
+# --- 1. СПИСКИ ФАЙЛОВ ---
 
-# Общие файлы (Логика, Сеть, Физика, Математика)
+# Общие файлы для сервера и клиента
 set(COMMON_SOURCES
         network/ShooterServer.cpp
         network/ShooterServer.h
@@ -67,43 +67,34 @@ set(COMMON_SOURCES
         engine/animation/Interpolation.h
 )
 
-# Клиентские файлы (Рендеринг, Управление, Камера)
-# Клиентские файлы (Рендеринг, Управление, Камера, Сетевой клиент)
+# Клиентские файлы
 set(CLIENT_SOURCES
         Source.cpp
         Shooter.cpp
         Shooter.h
         network/ShooterClient.cpp
         network/ShooterClient.h
-        # Добавляем базовый сетевой клиент
         engine/network/ClientUDP.cpp
         engine/network/ClientUDP.h
-
         player/PlayerController.cpp
         player/PlayerController.h
-
         engine/Engine.cpp
         engine/Engine.h
         engine/Camera.cpp
         engine/Camera.h
-
-        # Интерфейс и ввод
         engine/io/Screen.cpp
         engine/io/Screen.h
         engine/io/Keyboard.cpp
         engine/io/Keyboard.h
         engine/io/Mouse.cpp
         engine/io/Mouse.h
-
-        # Добавляем GUI систему
         engine/gui/Window.cpp
         engine/gui/Window.h
         engine/gui/Button.cpp
         engine/gui/Button.h
-        # Если есть другие файлы в engine/gui (например, Text, Label), добавьте их тоже
 )
 
-# --- 2. Поиск SFML ---
+# --- 2. ПОИСК SFML ---
 
 if(NOT APPLE AND NOT UNIX)
     set(SFML_DIR "C:/Libraries/SFML/lib/cmake/SFML")
@@ -112,7 +103,7 @@ endif()
 
 find_package(SFML 2.5.1 COMPONENTS graphics audio network window system REQUIRED)
 
-# --- 3. Создание цели: ИГРА (shooter) ---
+# --- 3. СБОРКА ИГРЫ (shooter) ---
 
 add_executable(shooter ${COMMON_SOURCES} ${CLIENT_SOURCES})
 
@@ -124,21 +115,20 @@ target_link_libraries(shooter
         sfml-system
 )
 
-# OpenGL для игры
 if (APPLE)
-    target_link_libraries(shooter "-framework OpenGL" "-framework GLUT")
+    target_link_libraries(shooter "-framework OpenGL")
 elseif(UNIX)
     find_package(OpenGL REQUIRED)
-    find_package(GLUT REQUIRED)
-    target_link_libraries(shooter ${OPENGL_LIBRARIES} ${GLUT_LIBRARY})
+    target_link_libraries(shooter ${OPENGL_LIBRARIES})
+else()
+    # Для MinGW на Windows оставляем только OpenGL. GLUT удален.
+    target_link_libraries(shooter opengl32)
 endif()
 
-# --- 4. Создание цели: СЕРВЕР (shooter_server) ---
+# --- 4. СБОРКА СЕРВЕРА (shooter_server) ---
 
-# Проверяем, существует ли файл ServerMain.cpp (создайте его, если еще нет)
 add_executable(shooter_server ServerMain.cpp ${COMMON_SOURCES})
 
-# Серверу всё же нужен sfml-graphics из-за использования sf::Color в COMMON_SOURCES
 target_link_libraries(shooter_server
         sfml-network
         sfml-graphics
@@ -146,5 +136,17 @@ target_link_libraries(shooter_server
         sfml-system
 )
 
-# Макрос для отделения серверной логики в коде
 target_compile_definitions(shooter_server PRIVATE HEADLESS_SERVER)
+
+# --- 5. НАСТРОЙКА ПУТЕЙ (MinGW / Linux) ---
+
+if(WIN32)
+    # Эти флаги заставляют MinGW включить стандартные библиотеки внутрь EXE
+    target_link_options(shooter PRIVATE -static -static-libgcc -static-libstdc++)
+    target_link_options(shooter_server PRIVATE -static -static-libgcc -static-libstdc++)
+endif()
+
+if(UNIX)
+    # Настройка для Ubuntu, чтобы сервер искал библиотеки в папке lib
+    set_target_properties(shooter shooter_server PROPERTIES INSTALL_RPATH "$ORIGIN/lib")
+endif()
