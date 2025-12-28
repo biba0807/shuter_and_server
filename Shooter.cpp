@@ -12,7 +12,7 @@
 using namespace std;
 
 void Shooter::respawn() {
-    Vec3D spawnPoint{0, 30, 0};
+    Vec3D spawnPoint{0, 0, 0};
     player->translateToPoint(spawnPoint);
 }
 
