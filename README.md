@@ -13,19 +13,17 @@ Source code of simple shooter on [3Dzavr game engine](https://github.com/vectoza
 ![Issues](https://img.shields.io/bitbucket/issues-raw/vectozavr/shooter)
 ![Repo size](https://img.shields.io/github/repo-size/vectozavr/shooter)
 
-<h4>Installation (OS Windows):</h4>
-1) [Download shooter 7z](https://drive.google.com/file/d/10mhgxUXd0e482U4oMaq4RD1rDeu3-YAX/view?usp=sharing/), [unzip it](https://www.7-zip.org/) and run shooter.exe
 
 
-2) Write <b>ip</b> and <b>port</b> of server in <b>connect.txt</b> file.
+# Windows 10
+1) Write <b>ip</b> and <b>port</b> of server in <b>connect.txt</b> file.
 
 
-3) Write <b>port</b> of the server in <b>server.txt</b> file (only for computer where the server will be running).
+2) Write <b>port</b> of the server in <b>server.txt</b> file (only for computer where the server will be running).
 
 
 3) Enjoy gaming!
 
-[<h5>Click here if you want to run the server</h3>](https://github.com/vectozavr/shooter_server)
 
 <h4>Control:</h4>
 
@@ -37,34 +35,36 @@ Source code of simple shooter on [3Dzavr game engine](https://github.com/vectoza
 
 <b>R</b> – recharge
 
-<b>O</b> – turn OpenGL on/off
-
 <b>Tab</b> – turn debug mode on/off
 
 <h4>Playing with a source code:</h4>
 
-1) [Download and install OpenAL library](https://openal.org/downloads/) for SFML sound support (in current version you can't setup this engine without OpenAL)
+1) [Download and install OpenAL library](https://openal.org/downloads/) for SFML sound support (in current version you can't setup this engine without OpenAL) and sfml 2.5.1 inpacking to C:/Libraries/SFML/lib/cmake/SFML
 
 2) Clone this repository
 
 3) Open project
    
-   Using [CLion](https://www.jetbrains.com/clion/) with [MinGW (32-bit)](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/7.3.0/threads-posix/dwarf/i686-7.3.0-release-posix-dwarf-rt_v5-rev0.7z/download) compiler: open <b>CMakeList.txt</b> as a project
+   Using [CLion](https://www.jetbrains.com/clion/) compiler: open <b>CMakeList.txt</b> as a project
 
-   Using [Visual Studio](https://visualstudio.microsoft.com/ru/): open <b>shooter.sln</b> as a project
+   # linux
+4) sudo apt update 
+5) sudo apt install build-essential cmake libsfml-dev libgl1-mesa-dev libglut-dev
+6) mkdir build
+7) cd build
+8) cmake ..
+Сборка конкретно сервера
+9) make shooter_server
 
-4) Built project and run the game
+10) Built project and run the game
 
 Structure:
 ![Project demonstration](img/structure.png)
 
-Online:
-![Project demonstration](img/gamePlay4.png)
 
 GamePlay:
 ![Project demonstration](img/gamePlay3.png)
 ![Project demonstration](img/gamePlay5.png)
 ![Project demonstration](img/gamePlay6.png)
 ![Project demonstration](img/gamePlay7.png)
-![Project demonstration](img/opengl.png)
 "# shuter_and_server" 
