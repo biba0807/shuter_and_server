@@ -48,13 +48,47 @@ Source code of simple shooter on [3Dzavr game engine](https://github.com/vectoza
    Using [CLion](https://www.jetbrains.com/clion/) compiler: open <b>CMakeList.txt</b> as a project
 
    # linux
-4) sudo apt update 
-5) sudo apt install build-essential cmake libsfml-dev libgl1-mesa-dev libglut-dev
-6) mkdir build
-7) cd build
-8) cmake ..
-Сборка конкретно сервера
-9) make shooter_server
+Конечно, вот краткая версия для `README.md`, которую удобно скопировать:
+
+---
+
+### 🚀 Быстрый запуск сервера на Ubuntu
+
+**1. Подготовка системы:**
+
+```bash
+sudo apt update && sudo apt install -y git build-essential cmake libsfml-dev libgl1-mesa-dev freeglut3-dev
+
+```
+
+**2. Сборка проекта:**
+
+```bash
+git clone https://github.com/biba0807/shuter_and_server.git
+cd shuter_and_server
+mkdir build && cd build
+cmake ..
+make shooter_server -j$(nproc)
+
+```
+
+**3. Настройка сети (открываем порт 54545):**
+
+```bash
+sudo iptables -I INPUT -p udp --dport 54545 -j ACCEPT
+sudo apt install -y iptables-persistent && sudo netfilter-persistent save
+
+```
+
+**4. Запуск:**
+
+```bash
+cd ..
+./shooter_server
+
+```
+
+---
 
 10) Built project and run the game
 
@@ -65,6 +99,5 @@ Structure:
 GamePlay:
 ![Project demonstration](img/gamePlay3.png)
 ![Project demonstration](img/gamePlay5.png)
-![Project demonstration](img/gamePlay6.png)
 ![Project demonstration](img/gamePlay7.png)
 "# shuter_and_server" 
