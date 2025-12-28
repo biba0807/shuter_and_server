@@ -92,5 +92,13 @@ cd ..
 
 10) Built project and run the game
 
+Structure:
+![Project demonstration](img/structure.png)
+
+
+GamePlay:
+![Project demonstration](img/gamePlay3.png)
+![Project demonstration](img/gamePlay5.png)
+![Project demonstration](img/gamePlay7.png)
 
 "# shuter_and_server" 
