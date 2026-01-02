@@ -4,17 +4,6 @@
 
 Source code of simple shooter on [3Dzavr game engine](https://github.com/vectozavr/3dzavr)
 
-![Project demonstration](img/gamePlay2.png)
-
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](http://choosealicense.com/licenses/mit/)
-[![Community Discord](https://img.shields.io/discord/788056426324426782.svg?label=discord&logo=discord)](https://discord.gg/NzSf5tyS)
-![Commits](https://img.shields.io/github/last-commit/vectozavr/shooter)
-[![TODOs](https://badgen.net/https/api.tickgit.com/badgen/github.com/vectozavr/shooter)](https://www.tickgit.com/browse?repo=github.com/vectozavr/shooter)
-![Issues](https://img.shields.io/bitbucket/issues-raw/vectozavr/shooter)
-![Repo size](https://img.shields.io/github/repo-size/vectozavr/shooter)
-
-
-
 # Windows 10
 1) Write <b>ip</b> and <b>port</b> of server in <b>connect.txt</b> file.
 
@@ -39,19 +28,15 @@ Source code of simple shooter on [3Dzavr game engine](https://github.com/vectoza
 
 <h4>Playing with a source code:</h4>
 
-1) [Download and install OpenAL library](https://openal.org/downloads/) for SFML sound support (in current version you can't setup this engine without OpenAL) and sfml 2.5.1 inpacking to C:/Libraries/SFML/lib/cmake/SFML
+1) [Download and install OpenAL library](https://openal.org/downloads/) for SFML sound support (in current version you can't setup this engine without OpenAL) and [SFML](SFML.7z) 2.5.1 inpacking to C:/Libraries/
 
 2) Clone this repository
 
 3) Open project
-   
+
    Using [CLion](https://www.jetbrains.com/clion/) compiler: open <b>CMakeList.txt</b> as a project
 
    # linux
-Конечно, вот краткая версия для `README.md`, которую удобно скопировать:
-
----
-
 ### 🚀 Быстрый запуск сервера на Ubuntu
 
 **1. Подготовка системы:**
@@ -72,10 +57,10 @@ make shooter_server -j$(nproc)
 
 ```
 
-**3. Настройка сети (открываем порт 54545):**
+**3. Настройка сети (открываем порт 54000):**
 
 ```bash
-sudo iptables -I INPUT -p udp --dport 54545 -j ACCEPT
+sudo iptables -I INPUT -p udp --dport 54000 -j ACCEPT
 sudo apt install -y iptables-persistent && sudo netfilter-persistent save
 
 ```
@@ -100,5 +85,3 @@ GamePlay:
 ![Project demonstration](img/gamePlay3.png)
 ![Project demonstration](img/gamePlay5.png)
 ![Project demonstration](img/gamePlay7.png)
-
-"# shuter_and_server" 
